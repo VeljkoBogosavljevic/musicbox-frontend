@@ -1,2 +1,2 @@
-# muiscbox-frontend
+# musicbox-frontend
 MusicBox client user interface
