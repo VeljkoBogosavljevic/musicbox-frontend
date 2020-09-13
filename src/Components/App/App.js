@@ -4,22 +4,20 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {
   BrowserRouter as Router,
   Switch,
-  Route,
-  useParams
+  Route
 } from "react-router-dom";
 import NewReleases from '../NewReleases/NewReleases';
 import Welcome from '../Welcome/Welcome';
+import markets from '../../Constants/markets';
 
 class App extends Component {
 
   constructor (props) {
     super(props);
     this.state = {
-      selectedMarket: ''
+      selectedMarket: markets[1].code
     };
   }
-
-  
 
   render () {
     const onSelect = (selectedMarket) => {
@@ -33,10 +31,10 @@ class App extends Component {
         <Router>
           <Switch>
             <Route exact path="/">
-              <Welcome onSelect = {onSelect}/>
+              <Welcome selectedMarket = {this.state.selectedMarket} onSelect = {onSelect}/>
             </Route>
             <Route path="/new-releases">
-              <NewReleases />
+              <NewReleases selectedMarket = {this.state.selectedMarket}/>
             </Route>
           </Switch>
         </Router>

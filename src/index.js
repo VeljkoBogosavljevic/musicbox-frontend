@@ -5,10 +5,10 @@ import App from './Components/App/App';
 import * as serviceWorker from './Utils/serviceWorker';
 
 ReactDOM.render(
-  <React.StrictMode>
+  <>
     <title>Music Box</title>
     <App />
-  </React.StrictMode>,
+  </>,
   document.getElementById('root')
 );
 
