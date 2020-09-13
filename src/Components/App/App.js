@@ -1,26 +1,47 @@
-import React from 'react';
-import logo from './styles/logo.svg';
-import './styles/App.css';
+import React, { Component } from 'react';
+import '../../Styles/App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  useParams
+} from "react-router-dom";
+import NewReleases from '../NewReleases/NewReleases';
+import Welcome from '../Welcome/Welcome';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+
+  constructor (props) {
+    super(props);
+    this.state = {
+      selectedMarket: ''
+    };
+  }
+
+  
+
+  render () {
+    const onSelect = (selectedMarket) => {
+      console.log('Selected market: ', selectedMarket);
+      this.setState({
+        selectedMarket: selectedMarket
+      });
+    }
+
+    return (
+        <Router>
+          <Switch>
+            <Route exact path="/">
+              <Welcome onSelect = {onSelect}/>
+            </Route>
+            <Route path="/new-releases">
+              <NewReleases />
+            </Route>
+          </Switch>
+        </Router>
+    );
+  }
 }
 
 export default App;
