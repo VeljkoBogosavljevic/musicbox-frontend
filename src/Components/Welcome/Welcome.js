@@ -9,9 +9,23 @@ class Welcome extends Component {
     constructor(props) {
         console.log('Welcome to Music Box application ');
         super(props);
+        this.state = {
+            selectedMarket: markets[1].code
+        };
+    }
+
+    hrefBuilder (selectedMarket) {
+        return `/new-releases/${selectedMarket}`;
     }
 
     render () {
+        const onSelect = (selectedMarket) => {
+            console.log('Selected market: ', selectedMarket);
+            this.setState({
+              selectedMarket: selectedMarket
+            });
+        }
+
         return (
             <div className="App">
                 <header className="App-header">
@@ -22,9 +36,9 @@ class Welcome extends Component {
                         {markets.map(market => <Dropdown.Item 
                                                 key={market.code} 
                                                 eventKey={market.code} 
-                                                onSelect={this.props.onSelect} 
-                                                active = {market.code === this.props.selectedMarket}
-                                                href="/new-releases">
+                                                onSelect={onSelect} 
+                                                active = {market.code === this.state.selectedMarket}
+                                                href={this.hrefBuilder(this.state.selectedMarket)}>
                                                     {market.name}
                                                 </Dropdown.Item>)}
                     </DropdownButton>

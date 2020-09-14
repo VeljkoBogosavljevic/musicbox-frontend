@@ -8,33 +8,23 @@ import {
 } from "react-router-dom";
 import NewReleases from '../NewReleases/NewReleases';
 import Welcome from '../Welcome/Welcome';
-import markets from '../../Constants/markets';
 
 class App extends Component {
 
   constructor (props) {
+    console.log('App Component');
     super(props);
-    this.state = {
-      selectedMarket: markets[1].code
-    };
   }
 
   render () {
-    const onSelect = (selectedMarket) => {
-      console.log('Selected market: ', selectedMarket);
-      this.setState({
-        selectedMarket: selectedMarket
-      });
-    }
-
     return (
         <Router>
           <Switch>
             <Route exact path="/">
-              <Welcome selectedMarket = {this.state.selectedMarket} onSelect = {onSelect}/>
+              <Welcome key="welcome"/>
             </Route>
-            <Route path="/new-releases">
-              <NewReleases selectedMarket = {this.state.selectedMarket}/>
+            <Route path="/new-releases/:selectedMarket">
+              <NewReleases key="new-releases"/>
             </Route>
           </Switch>
         </Router>
