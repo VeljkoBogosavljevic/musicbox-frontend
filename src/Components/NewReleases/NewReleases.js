@@ -6,6 +6,7 @@ import { useParams } from 'react-router-dom';
 import NewReleasesCarousel from './NewReleasesCarousel';
 import Tracks from '../Tracks/Tracks';
 import { Spinner } from 'react-bootstrap';
+import NavigationBar from '../NavigationBar/NavigationBar';
 
 
 function NewReleases () {
@@ -13,6 +14,11 @@ function NewReleases () {
     const [isLoaded, setIsLoaded] = useState(false);
     const [items, setItems] = useState([]);
     const [activeAlbum, setActiveAlbum] = useState({});
+    const [recentlyViewed, setRecentlyViewed] = useState([]);
+    const [recentlyViewedLimit, setRecentlyViewedLimit] = useState(6);
+    // Reuse to set carousel active index when clicked on recently view item, 
+    // but since Navbar is not working as I expected to work I gave up this feature
+    const [carouselIndex, setCarouselIndex] = useState(0);
 
     const {selectedMarket} = useParams();
 
@@ -31,23 +37,42 @@ function NewReleases () {
             });
       }, [selectedMarket]);
 
+      const pushRecentlyViewed = (album, index) => {
+        if (!recentlyViewed.some(recentlyViewAlbum => recentlyViewAlbum.id === album.id)) {
+            let recentlyViewedCopy = recentlyViewed;
+            if (recentlyViewed.length >= recentlyViewedLimit) {
+                recentlyViewedCopy.shift();
+            }
+            album.index = index;
+            recentlyViewedCopy = [...recentlyViewedCopy, album];
+            setRecentlyViewed(recentlyViewedCopy);
+        }
+        
+      };
+
       return (
         <div className="App">
+            <NavigationBar recentlyViewed={recentlyViewed}></NavigationBar>
             <header className="App-header App-header-new-releases">
             <h1 className="App-h1-new-releases">New releases</h1>
              {!isLoaded ? <Spinner animation="border" size="lg" /> :
                     error ? <h6>Ooops, error while fetching new releases</h6> :
-                        <p>Top {items.length} albums</p>
+                        <h6>Top {items.length} albums</h6>
                 }
             </header>
             <div className="App-body">
                 {items.length > 0 && <>
-                                        <NewReleasesCarousel albums = {items} setActiveAlbum={setActiveAlbum}></NewReleasesCarousel>
+                                        <NewReleasesCarousel carouselIndex = {carouselIndex}
+                                                             setCarouselIndex = {setCarouselIndex}
+                                                             albums = {items} 
+                                                             setActiveAlbum={setActiveAlbum} 
+                                                             pushRecentlyViewed={pushRecentlyViewed}>
+                                        </NewReleasesCarousel>
                                         <Tracks key={activeAlbum.id} activeAlbum={activeAlbum}></Tracks>
                                     </>}
             </div>
             <div className="App-footer">
-                <h8><i>by Veljko Bogosavljevic</i></h8>
+                <i>by Veljko Bogosavljevic</i>
             </div>
         </div>
       );

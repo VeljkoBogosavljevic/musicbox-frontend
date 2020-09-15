@@ -14,7 +14,7 @@ function TracksTable (props) {
             </thead>
             <tbody>
                 {props.tracks.map(track => {
-                    return <tr>
+                    return <tr key={track.id}>
                             <td>{track.track_number}</td>
                             <td>{track.name}</td>
                             <td>{track.artists.map(artist => artist.name).join(', ')}</td>

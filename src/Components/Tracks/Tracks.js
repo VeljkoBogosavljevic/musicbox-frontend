@@ -34,8 +34,8 @@ function Tracks (props) {
     }
 
     return (
-        <div>
-            <Button variant="success" onClick={!isLoading ? handleClick : null} disabled={isLoading}>
+        <div >
+            <Button className="App-view-tracks-button" variant="success" onClick={!isLoading ? handleClick : null} disabled={isLoading}>
                 {isLoading ? <Spinner as="span" animation="grow" size="sm" role="status" aria-hidden="true"></Spinner> : 'View tracks'}
             </Button>
             <div className="App-tracks">
