@@ -4,7 +4,7 @@ import axios from 'axios';
 import logo from '../../Styles/logo.svg';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useParams } from 'react-router-dom';
-import { Media } from 'react-bootstrap';
+import NewReleasesCarousel from './NewReleasesCarousel';
 
 
 function NewReleases () {
@@ -30,31 +30,16 @@ function NewReleases () {
 
       return (
         <div className="App">
-            <header className="App-header">
-            <h1 style={{marginBottom: '20px'}}>New releases</h1>
+            <header className="App-header App-header-new-releases">
+            <h1 className="App-h1-new-releases">New releases</h1>
              {!isLoaded ? <img src={logo} className="App-logo" alt="logo" /> :
                     error ? <h6>Ooops, error while fetching new releases</h6> :
-                    <ul className="list-unstyled">
-                        {items.map(album => {
-                            return <Media as="li" key={album.id}>
-                                 <img 
-                                    width={album.images[2].width}
-                                    height={album.images[2].height}
-                                    className="mr-3"
-                                    src={album.images[2].url}
-                                    alt = {album.id}
-                                />
-                                <Media.Body>
-                                     <h5>{album.name}</h5>
-                                    <p>
-                                        Total tracks: {album.total_tracks}
-                                    </p>
-                                </Media.Body>
-                            </Media>
-                        })}
-                    </ul>
+                        <p>Top {items.length} albums</p>
                 }
             </header>
+            <div className="App-body">
+                {items.length > 0 && <NewReleasesCarousel albums = {items}></NewReleasesCarousel>}
+            </div>
         </div>
       );
 };
