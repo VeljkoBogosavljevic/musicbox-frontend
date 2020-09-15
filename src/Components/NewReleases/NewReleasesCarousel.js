@@ -1,12 +1,9 @@
-import React, {useState} from 'react';
+import React from 'react';
 import { Carousel } from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
 
 function NewReleasesCarousel (props) {
-    const [activeAlbum, setActiveAlbum] = useState(props.albums[0]);
-
     const handleSelect = (selectedIndex, e) => {
-        setActiveAlbum(props.albums[selectedIndex]);
+        props.setActiveAlbum(props.albums[selectedIndex]);
     };
 
     return (
