@@ -8,9 +8,7 @@ function RecentlyViewedLimit (props) {
     const recentlyViewedLimitRange = util.range(3,10);
 
     const onSelect = (limit) => {
-        
         props.updateRecentlyViewedLimit(limit);
-        console.log('Novi limit: ', props.recentlyViewedLimit);
     }
 
     return (
