@@ -47,12 +47,20 @@ function NewReleases () {
             recentlyViewedCopy = [...recentlyViewedCopy, album];
             setRecentlyViewed(recentlyViewedCopy);
         }
-        
       };
+
+      const updateRecentlyViewedLimit = (limit) => {
+        setRecentlyViewedLimit(limit);
+        if (limit < recentlyViewed.length) {
+            let recentlyViewedCopy = recentlyViewed;
+            recentlyViewedCopy = recentlyViewedCopy.slice(- limit);
+            setRecentlyViewed(recentlyViewedCopy);
+        }
+      }
 
       return (
         <div className="App">
-            <NavigationBar recentlyViewed={recentlyViewed}></NavigationBar>
+            <NavigationBar recentlyViewed={recentlyViewed} recentlyViewedLimit={recentlyViewedLimit} updateRecentlyViewedLimit={updateRecentlyViewedLimit}></NavigationBar>
             <header className="App-header App-header-new-releases">
             <h1 className="App-h1-new-releases">New releases</h1>
              {!isLoaded ? <Spinner animation="border" size="lg" /> :
