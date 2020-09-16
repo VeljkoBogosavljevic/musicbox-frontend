@@ -17,7 +17,7 @@ function RecentlyViewedLimit (props) {
                                 key={option} 
                                 eventKey={option} 
                                 onSelect={onSelect} 
-                                active = {option === parseInt(props.recentlyViewedLimit)}>
+                                active = {option === props.recentlyViewedLimit}>
                                     {option}
                                 </Dropdown.Item>)}
         </DropdownButton>

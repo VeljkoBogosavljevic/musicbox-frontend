@@ -50,7 +50,7 @@ function NewReleases () {
       };
 
       const updateRecentlyViewedLimit = (limit) => {
-        setRecentlyViewedLimit(limit);
+        setRecentlyViewedLimit(parseInt(limit));
         if (limit < recentlyViewed.length) {
             let recentlyViewedCopy = recentlyViewed;
             recentlyViewedCopy = recentlyViewedCopy.slice(- limit);
